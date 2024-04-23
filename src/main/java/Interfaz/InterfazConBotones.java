@@ -1,5 +1,6 @@
 package Interfaz;
 
+import AnalisisyOrganización.Ordenar;
 import DatosDinamicos.Dato;
 import DatosDinamicos.ListaDeDatos;
 import DatosDinamicos.Pareja;
@@ -17,6 +18,8 @@ public class InterfazConBotones extends JFrame {
     private JButton buttonAdd;
     private JButton buttonDelete;
     private JButton buttonModify;
+    private JButton buttonSort;
+    private JPopupMenu sortMenu;
     private JList<Dato> dataList;
 
     public InterfazConBotones() {
@@ -86,6 +89,47 @@ public class InterfazConBotones extends JFrame {
             }
         });
         add(buttonModify);
+
+        buttonSort = new JButton("Ordenar");
+        buttonSort.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                sortMenu.show(buttonSort, buttonSort.getWidth() / 2, buttonSort.getHeight() / 2);
+            }
+        });
+        add(buttonSort);
+
+        sortMenu = new JPopupMenu();
+
+        JMenuItem sortByDatoReal = new JMenuItem("Ordenar por Valor Real");
+        sortByDatoReal.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Ordenar.ordenarPorDatoReal(listaDeDatos);
+                updateDataList();
+            }
+        });
+        sortMenu.add(sortByDatoReal);
+
+        JMenuItem sortByFirst = new JMenuItem("Ordenar por Primer Valor de Pareja");
+        sortByFirst.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Ordenar.ordenarPorFirst(listaDeDatos);
+                updateDataList();
+            }
+        });
+        sortMenu.add(sortByFirst);
+
+        JMenuItem sortBySecond = new JMenuItem("Ordenar por Segundo Valor de Pareja");
+        sortBySecond.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Ordenar.ordenarPorSecond(listaDeDatos);
+                updateDataList();
+            }
+        });
+        sortMenu.add(sortBySecond);
 
         dataList = new JList<>();
         add(new JScrollPane(dataList));
