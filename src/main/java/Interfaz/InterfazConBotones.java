@@ -11,6 +11,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 import java.util.List;
 
 public class InterfazConBotones extends JFrame {
@@ -29,6 +30,13 @@ public class InterfazConBotones extends JFrame {
     private JButton buttonSortByAmount;
     private JButton buttonFilterByClient;
     private JList<Transaccion> transactionList;
+
+    private JTextField fieldIdTransaccion;
+    private JTextField fieldFecha;
+    private JTextField fieldMonto;
+    private JTextField fieldIdCliente;
+    private JButton buttonAddTransaction;
+
 
     public InterfazConBotones() {
         listaDeDatos = new ListaDeDatos();
@@ -173,6 +181,40 @@ public class InterfazConBotones extends JFrame {
             }
         });
         add(buttonFilterByClient);
+
+        fieldIdTransaccion = new JTextField(10);
+        add(fieldIdTransaccion);
+
+        fieldFecha = new JTextField(10);
+        add(fieldFecha);
+
+        fieldMonto = new JTextField(10);
+        add(fieldMonto);
+
+        fieldIdCliente = new JTextField(10);
+        add(fieldIdCliente);
+
+        buttonAddTransaction = new JButton("Agregar transacción");
+        buttonAddTransaction.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int idTransaccion = Integer.parseInt(fieldIdTransaccion.getText());
+                // Aquí asumimos que la fecha se introduce en el formato "yyyy-MM-dd"
+                Date fecha = java.sql.Date.valueOf(fieldFecha.getText());
+                double monto = Double.parseDouble(fieldMonto.getText());
+                int idCliente = Integer.parseInt(fieldIdCliente.getText());
+
+                Transaccion transaccion = new Transaccion(idTransaccion, fecha, monto, idCliente);
+                registroTransacciones.agregarTransaccion(transaccion);
+                updateTransactionList();
+
+                fieldIdTransaccion.setText("");
+                fieldFecha.setText("");
+                fieldMonto.setText("");
+                fieldIdCliente.setText("");
+            }
+        });
+        add(buttonAddTransaction);
 
         transactionList = new JList<>();
         add(new JScrollPane(transactionList));
