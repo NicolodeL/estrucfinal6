@@ -24,34 +24,14 @@ public class InterfazConBotones extends JFrame {
 
         setLayout(new FlowLayout());
 
-        JButton buttonDatos = new JButton("Datos");
-        buttonDatos.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                showDataEntryDialog();
-            }
-        });
-        add(buttonDatos);
-
-        dataList = new JList<>();
-        add(new JScrollPane(dataList));
-
-        setSize(300, 200);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
-
-    private void showDataEntryDialog() {
-        JDialog dialog = new JDialog(this, "Ingresar datos", true);
-        dialog.setLayout(new FlowLayout());
-
         fieldDatoReal = new JTextField(10);
-        dialog.add(fieldDatoReal);
+        add(fieldDatoReal);
 
         fieldFirst = new JTextField(10);
-        dialog.add(fieldFirst);
+        add(fieldFirst);
 
         fieldSecond = new JTextField(10);
-        dialog.add(fieldSecond);
+        add(fieldSecond);
 
         buttonAdd = new JButton("Agregar dato");
         buttonAdd.addActionListener(new ActionListener() {
@@ -72,7 +52,7 @@ public class InterfazConBotones extends JFrame {
                 fieldSecond.setText("");
             }
         });
-        dialog.add(buttonAdd);
+        add(buttonAdd);
 
         buttonDelete = new JButton("Eliminar dato");
         buttonDelete.addActionListener(new ActionListener() {
@@ -85,7 +65,7 @@ public class InterfazConBotones extends JFrame {
                 }
             }
         });
-        dialog.add(buttonDelete);
+        add(buttonDelete);
 
         buttonModify = new JButton("Modificar dato");
         buttonModify.addActionListener(new ActionListener() {
@@ -105,10 +85,13 @@ public class InterfazConBotones extends JFrame {
                 }
             }
         });
-        dialog.add(buttonModify);
+        add(buttonModify);
 
-        dialog.pack();
-        dialog.setVisible(true);
+        dataList = new JList<>();
+        add(new JScrollPane(dataList));
+
+        setSize(300, 200);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     private void updateDataList() {
