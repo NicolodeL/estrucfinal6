@@ -4,6 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Mapeado {
+
+    private Map<Integer, Character> numberToLetter;
+    private Map<Integer, String> numberToText;
+
     public static void main(String[] args) {
         // Crear un mapa para asociar números con letras
         Map<Integer, Character> numberToLetter = new HashMap<>();
@@ -19,6 +23,14 @@ public class Mapeado {
         numberToText.put(3, "Three");
         // ...
 
+        // Ahora puedes usar estos mapas para gestionar las relaciones
+        System.out.println(numberToLetter.get(1)); // Imprime: A
+        System.out.println(numberToText.get(2)); // Imprime: Two
+
+
+    }
+
+    public void showMappings() {
         // Ahora puedes usar estos mapas para gestionar las relaciones
         System.out.println(numberToLetter.get(1)); // Imprime: A
         System.out.println(numberToText.get(2)); // Imprime: Two
