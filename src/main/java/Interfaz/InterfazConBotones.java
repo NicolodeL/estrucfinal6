@@ -6,7 +6,7 @@ import AnalisisyOrganización.Transaccion;
 import DatosDinamicos.Dato;
 import DatosDinamicos.ListaDeDatos;
 import DatosDinamicos.Pareja;
-
+import MapayAsociacion.Mapeado;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -29,6 +29,8 @@ public class InterfazConBotones extends JFrame {
     private JButton buttonSortByDate;
     private JButton buttonSortByAmount;
     private JButton buttonFilterByClient;
+
+    private JButton buttonShowMappings;
     private JList<Transaccion> transactionList;
 
     private JTextField fieldIdTransaccion;
@@ -215,6 +217,16 @@ public class InterfazConBotones extends JFrame {
             }
         });
         add(buttonAddTransaction);
+
+        buttonShowMappings = new JButton("Mostrar mapeos");
+        buttonShowMappings.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Mapeado mapeado = new Mapeado();
+                mapeado.showMappings();
+            }
+        });
+        add(buttonShowMappings);
 
         transactionList = new JList<>();
         add(new JScrollPane(transactionList));
