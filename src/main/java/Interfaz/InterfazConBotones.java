@@ -1,6 +1,8 @@
 package Interfaz;
 
 import AnalisisyOrganización.Ordenar;
+import AnalisisyOrganización.RegistroTransacciones;
+import AnalisisyOrganización.Transaccion;
 import DatosDinamicos.Dato;
 import DatosDinamicos.ListaDeDatos;
 import DatosDinamicos.Pareja;
@@ -9,6 +11,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class InterfazConBotones extends JFrame {
     private JTextField fieldDatoReal;
@@ -21,9 +24,15 @@ public class InterfazConBotones extends JFrame {
     private JButton buttonSort;
     private JPopupMenu sortMenu;
     private JList<Dato> dataList;
+    private RegistroTransacciones registroTransacciones;
+    private JButton buttonSortByDate;
+    private JButton buttonSortByAmount;
+    private JButton buttonFilterByClient;
+    private JList<Transaccion> transactionList;
 
     public InterfazConBotones() {
         listaDeDatos = new ListaDeDatos();
+        registroTransacciones = new RegistroTransacciones();
 
         setLayout(new FlowLayout());
 
@@ -134,6 +143,40 @@ public class InterfazConBotones extends JFrame {
         dataList = new JList<>();
         add(new JScrollPane(dataList));
 
+        buttonSortByDate = new JButton("Ordenar transacciones por Fecha");
+        buttonSortByDate.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                registroTransacciones.ordenarPorFecha();
+                updateTransactionList();
+            }
+        });
+        add(buttonSortByDate);
+
+        buttonSortByAmount = new JButton("Ordenar transacciones por Monto");
+        buttonSortByAmount.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                registroTransacciones.ordenarPorMonto();
+                updateTransactionList();
+            }
+        });
+        add(buttonSortByAmount);
+
+        buttonFilterByClient = new JButton("Filtrar transacciones por Cliente");
+        buttonFilterByClient.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Aquí puedes reemplazar '1' con el ID del cliente que deseas filtrar
+                List<Transaccion> filteredTransactions = registroTransacciones.filtrarPorCliente(1);
+                updateTransactionList(filteredTransactions);
+            }
+        });
+        add(buttonFilterByClient);
+
+        transactionList = new JList<>();
+        add(new JScrollPane(transactionList));
+
         setSize(300, 200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
@@ -144,5 +187,21 @@ public class InterfazConBotones extends JFrame {
             model.addElement(dato);
         }
         dataList.setModel(model);
+    }
+
+    private void updateTransactionList() {
+        DefaultListModel<Transaccion> model = new DefaultListModel<>();
+        for (Transaccion transaccion : registroTransacciones.getTransacciones()) {
+            model.addElement(transaccion);
+        }
+        transactionList.setModel(model);
+    }
+
+    private void updateTransactionList(List<Transaccion> transactions) {
+        DefaultListModel<Transaccion> model = new DefaultListModel<>();
+        for (Transaccion transaccion : transactions) {
+            model.addElement(transaccion);
+        }
+        transactionList.setModel(model);
     }
 }

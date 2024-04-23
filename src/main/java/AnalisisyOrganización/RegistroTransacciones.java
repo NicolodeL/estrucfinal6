@@ -32,4 +32,6 @@ public class RegistroTransacciones {
     }
 
 
+    public Transaccion[] getTransacciones() {
+    return transacciones.toArray(new Transaccion[0]);}
 }
