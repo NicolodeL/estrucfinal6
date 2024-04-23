@@ -15,6 +15,8 @@ import java.util.Date;
 import java.util.List;
 import MapayAsociacion.Recuperador;
 import IndexacionyVisualizacion.Indexador;
+import IndexacionyVisualizacion.OrdenArchivos;
+
 public class InterfazConBotones extends JFrame {
     private JTextField fieldDatoReal;
     private JTextField fieldFirst;
@@ -38,6 +40,8 @@ public class InterfazConBotones extends JFrame {
     private JTextField fieldFileName;
     private Indexador indexador;
     private JList<Transaccion> transactionList;
+    private JButton buttonListFilesOrden;
+    private OrdenArchivos ordenArchivos;
 
     private JTextField fieldIdTransaccion;
     private JTextField fieldFecha;
@@ -286,6 +290,20 @@ public class InterfazConBotones extends JFrame {
             }
         });
         add(buttonSearchFile);
+
+
+        ordenArchivos = new OrdenArchivos();
+
+        buttonListFilesOrden = new JButton("Listar archivos ordenados");
+        buttonListFilesOrden.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                List<String> archivosOrdenados = ordenArchivos.listarArchivosOrdenados();
+                String mensaje = String.join("\n", archivosOrdenados);
+                JOptionPane.showMessageDialog(null, mensaje);
+            }
+        });
+        add(buttonListFilesOrden);
 
         transactionList = new JList<>();
         add(new JScrollPane(transactionList));
