@@ -15,6 +15,37 @@ public class Transaccion {
         this.idCliente = idCliente;
     }
 
-    // Getters y setters para cada atributo
+    public int getIdTransaccion() {
+        return idTransaccion;
+    }
+
+    public void setIdTransaccion(int idTransaccion) {
+        this.idTransaccion = idTransaccion;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+
+    public double getMonto() {
+        return monto;
+    }
+
+    public void setMonto(double monto) {
+        this.monto = monto;
+    }
+
+    public int getIdCliente() {
+        return idCliente;
+    }
+
+    public void setIdCliente(int idCliente) {
+        this.idCliente = idCliente;
+    }
+// Getters y setters para cada atributo
     // ...
 }
