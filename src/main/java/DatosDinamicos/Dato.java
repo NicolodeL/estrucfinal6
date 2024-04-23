@@ -1,5 +1,5 @@
 package DatosDinamicos;
-import DatosDinamicos.pareja;
+import DatosDinamicos.Pareja;
 public class Dato {
     private double datoReal;
     private Pareja pareja;
