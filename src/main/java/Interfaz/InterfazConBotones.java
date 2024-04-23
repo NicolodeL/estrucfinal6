@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
 import java.util.List;
+import MapayAsociacion.Recuperador;
 
 public class InterfazConBotones extends JFrame {
     private JTextField fieldDatoReal;
@@ -38,6 +39,9 @@ public class InterfazConBotones extends JFrame {
     private JTextField fieldMonto;
     private JTextField fieldIdCliente;
     private JButton buttonAddTransaction;
+    private JButton buttonRetrieveData;
+    private JTextField fieldKey;
+    private Recuperador recuperador;
 
 
     public InterfazConBotones() {
@@ -217,6 +221,22 @@ public class InterfazConBotones extends JFrame {
             }
         });
         add(buttonAddTransaction);
+
+        recuperador = new Recuperador();
+
+        fieldKey = new JTextField(10);
+        add(fieldKey);
+
+        buttonRetrieveData = new JButton("Recuperar dato");
+        buttonRetrieveData.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String key = fieldKey.getText();
+                String value = recuperador.recuperarDato(key);
+                JOptionPane.showMessageDialog(null, "El valor asociado a la clave '" + key + "' es: " + value);
+            }
+        });
+        add(buttonRetrieveData);
 
         buttonShowMappings = new JButton("Mostrar mapeos");
         buttonShowMappings.addActionListener(new ActionListener() {
