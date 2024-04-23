@@ -1,29 +1,55 @@
 package Interfaz;
 
+import DatosDinamicos.Dato;
+import DatosDinamicos.ListaDeDatos;
+import DatosDinamicos.Pareja;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class InterfazConBotones extends JFrame {
+    private JTextField fieldDatoReal;
+    private JTextField fieldFirst;
+    private JTextField fieldSecond;
+    private ListaDeDatos listaDeDatos;
+
     public InterfazConBotones() {
-        setTitle("Interfaz con Botones");
-        setSize(600, 400);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        listaDeDatos = new ListaDeDatos();
+
         setLayout(new FlowLayout());
 
-        JButton boton1 = new JButton("Botón 1");
-        JButton boton2 = new JButton("Botón 2");
-        JButton boton3 = new JButton("Botón 3");
+        fieldDatoReal = new JTextField(10);
+        add(fieldDatoReal);
 
-        add(boton1);
-        add(boton2);
-        add(boton3);
-    }
+        fieldFirst = new JTextField(10);
+        add(fieldFirst);
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                new InterfazConBotones().setVisible(true);
+        fieldSecond = new JTextField(10);
+        add(fieldSecond);
+
+        JButton buttonAdd = new JButton("Agregar dato");
+        buttonAdd.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                double datoReal = Double.parseDouble(fieldDatoReal.getText());
+                int first = Integer.parseInt(fieldFirst.getText());
+                int second = Integer.parseInt(fieldSecond.getText());
+
+                Pareja pareja = new Pareja(first, second);
+                Dato dato = new Dato(datoReal, pareja);
+
+                listaDeDatos.addDato(dato);
+
+                fieldDatoReal.setText("");
+                fieldFirst.setText("");
+                fieldSecond.setText("");
             }
         });
+        add(buttonAdd);
+
+        setSize(300, 200);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 }
