@@ -14,7 +14,7 @@ import java.awt.event.ActionListener;
 import java.util.Date;
 import java.util.List;
 import MapayAsociacion.Recuperador;
-
+import IndexacionyVisualizacion.Indexador;
 public class InterfazConBotones extends JFrame {
     private JTextField fieldDatoReal;
     private JTextField fieldFirst;
@@ -32,6 +32,11 @@ public class InterfazConBotones extends JFrame {
     private JButton buttonFilterByClient;
 
     private JButton buttonShowMappings;
+    private JButton buttonIndexDirectory;
+    private JButton buttonSearchFile;
+    private JTextField fieldDirectory;
+    private JTextField fieldFileName;
+    private Indexador indexador;
     private JList<Transaccion> transactionList;
 
     private JTextField fieldIdTransaccion;
@@ -247,6 +252,40 @@ public class InterfazConBotones extends JFrame {
             }
         });
         add(buttonShowMappings);
+
+        indexador = new Indexador();
+
+        fieldDirectory = new JTextField(10);
+        add(fieldDirectory);
+
+        buttonIndexDirectory = new JButton("Indexar directorio");
+        buttonIndexDirectory.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String directory = fieldDirectory.getText();
+                indexador.indexarDirectorio(directory);
+                JOptionPane.showMessageDialog(null, "Directorio indexado con éxito");
+            }
+        });
+        add(buttonIndexDirectory);
+
+        fieldFileName = new JTextField(10);
+        add(fieldFileName);
+
+        buttonSearchFile = new JButton("Buscar archivo");
+        buttonSearchFile.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String fileName = fieldFileName.getText();
+                String filePath = indexador.buscarArchivo(fileName);
+                if (filePath != null) {
+                    JOptionPane.showMessageDialog(null, "El archivo '" + fileName + "' se encuentra en: " + filePath);
+                } else {
+                    JOptionPane.showMessageDialog(null, "El archivo '" + fileName + "' no se encuentra en el índice");
+                }
+            }
+        });
+        add(buttonSearchFile);
 
         transactionList = new JList<>();
         add(new JScrollPane(transactionList));

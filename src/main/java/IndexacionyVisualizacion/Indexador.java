@@ -1,12 +1,13 @@
 package IndexacionyVisualizacion;
+
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Indexacion {
+public class Indexador {
     private Map<String, String> indice;
 
-    public Indexacion() {
+    public Indexador() {
         indice = new HashMap<>();
     }
 
@@ -26,5 +27,9 @@ public class Indexacion {
 
     public String buscarArchivo(String nombreArchivo) {
         return indice.get(nombreArchivo);
+    }
+
+    public Map<String, String> getIndice() {
+        return indice;
     }
 }
