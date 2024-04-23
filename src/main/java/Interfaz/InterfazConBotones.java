@@ -15,6 +15,9 @@ public class InterfazConBotones extends JFrame {
     private JTextField fieldSecond;
     private ListaDeDatos listaDeDatos;
     private JButton buttonAdd;
+    private JButton buttonDelete;
+    private JButton buttonModify;
+    private JList<Dato> dataList;
 
     public InterfazConBotones() {
         listaDeDatos = new ListaDeDatos();
@@ -29,6 +32,9 @@ public class InterfazConBotones extends JFrame {
             }
         });
         add(buttonDatos);
+
+        dataList = new JList<>();
+        add(new JScrollPane(dataList));
 
         setSize(300, 200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -59,6 +65,7 @@ public class InterfazConBotones extends JFrame {
                 Dato dato = new Dato(datoReal, pareja);
 
                 listaDeDatos.addDato(dato);
+                updateDataList();
 
                 fieldDatoReal.setText("");
                 fieldFirst.setText("");
@@ -67,7 +74,48 @@ public class InterfazConBotones extends JFrame {
         });
         dialog.add(buttonAdd);
 
+        buttonDelete = new JButton("Eliminar dato");
+        buttonDelete.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Dato selectedDato = dataList.getSelectedValue();
+                if (selectedDato != null) {
+                    listaDeDatos.getDatos().remove(selectedDato);
+                    updateDataList();
+                }
+            }
+        });
+        dialog.add(buttonDelete);
+
+        buttonModify = new JButton("Modificar dato");
+        buttonModify.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Dato selectedDato = dataList.getSelectedValue();
+                if (selectedDato != null) {
+                    double datoReal = Double.parseDouble(fieldDatoReal.getText());
+                    int first = Integer.parseInt(fieldFirst.getText());
+                    int second = Integer.parseInt(fieldSecond.getText());
+
+                    selectedDato.setDatoReal(datoReal);
+                    selectedDato.getPareja().setFirst(first);
+                    selectedDato.getPareja().setSecond(second);
+
+                    updateDataList();
+                }
+            }
+        });
+        dialog.add(buttonModify);
+
         dialog.pack();
         dialog.setVisible(true);
+    }
+
+    private void updateDataList() {
+        DefaultListModel<Dato> model = new DefaultListModel<>();
+        for (Dato dato : listaDeDatos.getDatos()) {
+            model.addElement(dato);
+        }
+        dataList.setModel(model);
     }
 }

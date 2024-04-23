@@ -16,4 +16,10 @@ public class Pareja {
     public int getSecond() {
         return second;
     }
+
+    public void setFirst(int first) {
+    }
+
+    public void setSecond(int second) {
+    }
 }

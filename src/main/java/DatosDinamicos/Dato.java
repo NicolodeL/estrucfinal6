@@ -16,4 +16,7 @@ public class Dato {
     public Pareja getPareja() {
         return pareja;
     }
+
+    public void setDatoReal(double datoReal) {
+    }
 }
