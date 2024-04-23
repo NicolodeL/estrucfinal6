@@ -14,22 +14,40 @@ public class InterfazConBotones extends JFrame {
     private JTextField fieldFirst;
     private JTextField fieldSecond;
     private ListaDeDatos listaDeDatos;
+    private JButton buttonAdd;
 
     public InterfazConBotones() {
         listaDeDatos = new ListaDeDatos();
 
         setLayout(new FlowLayout());
 
+        JButton buttonDatos = new JButton("Datos");
+        buttonDatos.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showDataEntryDialog();
+            }
+        });
+        add(buttonDatos);
+
+        setSize(300, 200);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    private void showDataEntryDialog() {
+        JDialog dialog = new JDialog(this, "Ingresar datos", true);
+        dialog.setLayout(new FlowLayout());
+
         fieldDatoReal = new JTextField(10);
-        add(fieldDatoReal);
+        dialog.add(fieldDatoReal);
 
         fieldFirst = new JTextField(10);
-        add(fieldFirst);
+        dialog.add(fieldFirst);
 
         fieldSecond = new JTextField(10);
-        add(fieldSecond);
+        dialog.add(fieldSecond);
 
-        JButton buttonAdd = new JButton("Agregar dato");
+        buttonAdd = new JButton("Agregar dato");
         buttonAdd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -47,9 +65,9 @@ public class InterfazConBotones extends JFrame {
                 fieldSecond.setText("");
             }
         });
-        add(buttonAdd);
+        dialog.add(buttonAdd);
 
-        setSize(300, 200);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        dialog.pack();
+        dialog.setVisible(true);
     }
 }
